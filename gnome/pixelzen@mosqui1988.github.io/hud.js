@@ -223,7 +223,7 @@ export class Hud {
             this._t(b.x - 2, b.y - 2, p2(now.getHours()) + ':' + p2(now.getMinutes()), {px: 46});
             this._t(b.x + 148, b.y + 16, p2(now.getSeconds()), {px: 18, col: PAL.rosa});
             this._t(b.x, b.y + 44, `${DIAS[now.getDay()]} ${now.getDate()} ${MESES[now.getMonth()]} ${now.getFullYear()}`, {px: 13});
-            this._t(b.x, b.y + 62, '令和' + kan(now.getFullYear() - 2018) + '年 ' + kan(now.getMonth() + 1) + '月' + kan(now.getDate()) + '日 ' + '日月火水木金土'[now.getDay()] + '曜日', {fam: JP, px: 12, col: PAL.rosa});
+            this._t(b.x, b.y + 62, DIAS[now.getDay()] + ', ' + now.getDate() + ' ' + ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'][now.getMonth()] + ' ' + now.getFullYear()', {fam: JP, px: 12, col: PAL.rosa});
             const L = luna(), q = Math.cos(2 * Math.PI * L.p);
             const lx = b.x + b.w - 44, ly = b.y + 2;
             for (let j = 0; j < 9; j++) {
