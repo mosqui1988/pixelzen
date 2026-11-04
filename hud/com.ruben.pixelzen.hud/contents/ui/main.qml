@@ -43,12 +43,11 @@ PlasmoidItem {
 
     // ------------------------------------------------------------ utilidades
     function p2(n) { return (n < 10 ? "0" : "") + n }
-    function kan(n) {
-        var dg = "〇一二三四五六七八九"
-        if (n < 10) return dg[n]
-        if (n < 20) return "十" + (n % 10 ? dg[n % 10] : "")
-        return dg[Math.floor(n / 10)] + "十" + (n % 10 ? dg[n % 10] : "")
-    }
+    
+
+
+
+
     function tasa(b) { return b >= 1048576 ? (b / 1048576).toFixed(1) + "M" : b >= 1024 ? Math.round(b / 1024) + "K" : b + "B" }
     function horas(m) { return m > 0 ? Math.floor(m / 60) + "h" + p2(m % 60) : "--" }
     function durac(s) { var dd = Math.floor(s / 86400), hh = Math.floor(s % 86400 / 3600), mm = Math.floor(s % 3600 / 60); return dd > 0 ? dd + "d" + hh + "h" : hh + "h" + p2(mm) }
@@ -61,12 +60,12 @@ PlasmoidItem {
     readonly property var meses: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
     readonly property var aylar: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
     readonly property var haikus: [
-        { jp: "古池や 蛙飛びこむ 水の音", es: "Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.", au: "Bashō" },
-        { jp: "閑さや 岩にしみ入る 蝉の声", es: "Sessizlik; ağustos böceğinin sesi kayaya işler.", au: "Bashō" },
-        { jp: "夏草や 兵どもが 夢の跡", es: "Yaz otları; savaşçıların düşünden geriye kalanlar.", au: "Bashō" },
-        { jp: "菜の花や 月は東に 日は西に", es: "Kanola çiçekleri; ay doğuda, güneş batıda.", au: "Buson" },
-        { jp: "秋深き 隣は何を する人ぞ", es: "Derin sonbahar; komşum acaba ne yapıyor?", au: "Bashō" },
-        { jp: "朝顔に つるべとられて もらい水", es: "Sarmaşık kovayı sardı; suyumu komşudan alıyorum.", au: "Chiyo-ni" }
+        { tr: "Durgun gölde bir halka; suya düşen yapraktan.", au: "PixelZen" },
+        { tr: "Gece serin, yıldızlar yakın; şehir yavaşça susar.", au: "PixelZen" },
+        { tr: "Sonbahar rüzgârı; dalda kalan son yaprak.", au: "PixelZen" },
+        { tr: "Ay ışığı düşer; sessiz sokaklarda bir kedi.", au: "PixelZen" },
+        { tr: "Yağmur diner, toprak kokar; sabah yeniden başlar.", au: "PixelZen" },
+        { tr: "Uzakta bir tren; akşamın içinden geçer.", au: "PixelZen" }
     ]
     property int hk: Math.floor(Date.now() / 90000) % haikus.length
     Timer { interval: 90000; running: true; repeat: true; onTriggered: hkAnim.restart() }
@@ -96,7 +95,7 @@ PlasmoidItem {
             Column {
                 anchors.centerIn: parent
                 spacing: -1
-                Text { anchors.horizontalCenter: parent.horizontalCenter; text: b.kanji; font.family: Pal.jp; font.pixelSize: 13; color: b.activo ? Pal.flor : Pal.faint; renderType: Text.NativeRendering }
+                Text { anchors.horizontalCenter: parent.horizontalCenter; text: b.label; font.family: Pal.mono; font.pixelSize: 10; color: b.activo ? Pal.text : Pal.faint; renderType: Text.NativeRendering; elide: Text.ElideRight; width: b.width - 6; horizontalAlignment: Text.AlignHCenter }
                 Text { anchors.horizontalCenter: parent.horizontalCenter; text: b.label; font.family: Pal.mono; font.pixelSize: 11; color: b.activo ? Pal.text : Pal.faint; renderType: Text.NativeRendering }
             }
         }
@@ -142,6 +141,7 @@ PlasmoidItem {
                 }
                 Text {
                     x: 0; y: 44
+                    visible: false
                     text: root.dias[root.now.getDay()] + " " + root.now.getDate() + " " + root.meses[root.now.getMonth()] + " " + root.now.getFullYear()
                     font.family: Pal.mono; font.pixelSize: 13; color: Pal.text; renderType: Text.NativeRendering
                 }
@@ -169,14 +169,14 @@ PlasmoidItem {
                         }
                     }
                 }
-                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "Ayın " + Math.round(root.luna().age) + ". günü"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
+                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.luna().age) + " gün"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
             // ===================================================== SISTEMA
             Card {
                 width: parent.width; height: 186
                 kanji: "機"; title: "SİSTEM"
-                meta: root.d.up ? "UP " + root.durac(root.d.up) : ""
+                meta: root.d.up ? "AÇIK " + root.durac(root.d.up) : ""
                 Column {
                     spacing: 5
                     Row { spacing: 8
@@ -190,13 +190,13 @@ PlasmoidItem {
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.ram.usado + "/" + Math.round(root.d.ram.total) + "G" }
                     }
                     Row { spacing: 8
-                        Etq { width: 30; text: "TMP"; y: 3 }
+                        Etq { width: 42; text: "ISI"; y: 3 }
                         SegBar { width: 178; value: root.d.temp ? (root.d.temp - 30) / 60 * 100 : 0; y: 3; c1: Pal.cyan; c2: Pal.amber; c3: Pal.hot }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: (root.d.temp ? root.d.temp.toFixed(0) : "--") + "°C" }
                     }
                     Row { spacing: 8
                         visible: root.d.bat !== null
-                        Etq { width: 30; text: root.d.bat && root.d.bat.estado === "Charging" ? "ŞAR" : "BAT"; y: 3 }
+                        Etq { width: 42; text: root.d.bat && root.d.bat.estado === "Charging" ? "ŞARJ" : "PİL"; y: 3 }
                         SegBar { width: 178; value: root.d.bat ? root.d.bat.pct : 0; y: 3; invert: true; c1: Pal.green }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
@@ -205,14 +205,14 @@ PlasmoidItem {
                     Row { spacing: 14
                         Etq { text: "YÜK"; y: 2 } Val { text: root.d.load[0].toFixed(2); font.pixelSize: 12 }
                         Etq { text: "DİSK"; y: 2 } Val { text: Math.round(root.d.disco) + "%"; font.pixelSize: 12 }
-                        Etq { text: "TOP"; y: 2 } Val { text: root.d.top && root.d.top.length ? root.d.top[0][0].substring(0, 8) : "--"; font.pixelSize: 12; color: Pal.amber }
+                        Etq { text: "İŞLEM"; y: 2 } Val { text: root.d.top && root.d.top.length ? root.d.top[0][0].substring(0, 8) : "--"; font.pixelSize: 12; color: Pal.amber }
                     }
                 }
             }
 
             // ===================================================== RED
             Card {
-                width: parent.width; height: 192
+                width: parent.width; height: 176
                 kanji: "網"; title: "AĞ"
                 meta: root.d.net && root.d.net.iface ? root.d.net.iface : "Ağ yok"
                 Column {
@@ -230,7 +230,7 @@ PlasmoidItem {
                     }
                     Row { spacing: 12
                         Etq { text: "IP"; y: 2 } Val { text: root.d.net && root.d.net.ip ? root.d.net.ip : "--"; font.pixelSize: 12 }
-                        Etq { text: "GW"; y: 2 } Val { text: root.d.net && root.d.net.gw ? root.d.net.gw : "--"; font.pixelSize: 12 }
+                        Etq { text: "AĞ GEÇ."; y: 2 } Val { text: root.d.net && root.d.net.gw ? root.d.net.gw : "--"; font.pixelSize: 12 }
                     }
                     Row { spacing: 8
                         Rectangle { y: 3; width: 9; height: 9; color: root.d.net.vpn && root.d.net.vpn.on ? Pal.green : Pal.faint }
@@ -256,8 +256,8 @@ PlasmoidItem {
                         }
                     }
                     Row { spacing: 12
-                        Etq { text: "BAĞL."; y: 2 } Val { text: root.s.est; font.pixelSize: 12 }
-                        Etq { text: "YEREL AĞ"; y: 2 } Val { text: root.s.vecinos + " cihaz"; font.pixelSize: 12 }
+                        Etq { text: "BAĞLANTI"; y: 2 } Val { text: root.s.est; font.pixelSize: 12 }
+                        Etq { text: "YEREL"; y: 2 } Val { text: root.s.vecinos + " cihaz"; font.pixelSize: 12 }
                         Etq { text: "DNS"; y: 2 } Val { text: root.s.dns ? root.s.dns : "--"; font.pixelSize: 12 }
                     }
                 }
@@ -272,7 +272,7 @@ PlasmoidItem {
                     spacing: 3
                     Text {
                         visible: !root.s.repos || root.s.repos.length === 0
-                        text: "dev, projeler veya src içinde Git deposu yok"; font.family: Pal.mono; font.pixelSize: 12; color: Pal.faint; renderType: Text.NativeRendering
+                        text: "Git deposu bulunamadı. ~/pixelzen ve geliştirme klasörleri taranıyor."; font.family: Pal.mono; font.pixelSize: 12; color: Pal.faint; renderType: Text.NativeRendering
                     }
                     Repeater {
                         model: root.s.repos ? root.s.repos : []
@@ -291,9 +291,9 @@ PlasmoidItem {
                     }
                     Row { spacing: 10
                         Rectangle { y: 5; width: 8; height: 8; color: root.s.fallos > 0 ? Pal.hot : Pal.green }
-                        Etq { text: "HİZ."; y: 2 } Val { text: root.s.fallos + " başarısız"; font.pixelSize: 12; color: root.s.fallos > 0 ? Pal.hot : Pal.text }
-                        Etq { text: "HATA 1 SA"; y: 2 } Val { text: root.s.errores; font.pixelSize: 12; color: root.s.errores > 0 ? Pal.amber : Pal.text }
-                        Etq { text: "EŞZ."; y: 2 } Val { text: root.s.pacman_h !== null && root.s.pacman_h !== undefined ? (root.s.pacman_h > 48 ? Math.floor(root.s.pacman_h / 24) + "d" : root.s.pacman_h + "h") : "--"; font.pixelSize: 12 }
+                        Etq { text: "HİZMET"; y: 2 } Val { text: root.s.fallos + " hata"; font.pixelSize: 12; color: root.s.fallos > 0 ? Pal.hot : Pal.text }
+                        Etq { text: "SON 1 SA."; y: 2 } Val { text: root.s.errores; font.pixelSize: 12; color: root.s.errores > 0 ? Pal.amber : Pal.text }
+                        Etq { text: "GÜNC."; y: 2 } Val { text: root.s.pacman_h !== null && root.s.pacman_h !== undefined ? (root.s.pacman_h > 48 ? Math.floor(root.s.pacman_h / 24) + "d" : root.s.pacman_h + "h") : "--"; font.pixelSize: 12 }
                     }
                 }
             }
@@ -323,12 +323,12 @@ PlasmoidItem {
             // ===================================================== HAIKU
             Card {
                 width: parent.width; height: 92
-                kanji: "句"; title: "HAIKU"; meta: root.haikus[root.hk].au
+                kanji: "句"; title: "KISA ŞİİR"; meta: root.haikus[root.hk].au
                 Item {
                     opacity: root.hkOp
                     width: parent.width; height: parent.height
-                    Text { text: root.haikus[root.hk].jp; font.family: Pal.jp; font.pixelSize: 14; color: Pal.flor; renderType: Text.NativeRendering }
-                    Text { y: 20; width: parent.width; wrapMode: Text.WordWrap; text: root.haikus[root.hk].es; font.family: Pal.mono; font.pixelSize: 12; color: Pal.dim; renderType: Text.NativeRendering }
+                    Text { text: ""; font.family: Pal.jp; font.pixelSize: 14; color: Pal.flor; renderType: Text.NativeRendering }
+                    Text { y: 20; width: parent.width; wrapMode: Text.WordWrap; text: root.haikus[root.hk].tr; font.family: Pal.mono; font.pixelSize: 12; color: Pal.dim; renderType: Text.NativeRendering }
                 }
             }
         }
