@@ -25,7 +25,7 @@ var c = p.addWidget("org.kde.plasma.digitalclock");
 c.currentConfigGroup = ["Appearance"];
 c.writeConfig("showDate", true);
 c.writeConfig("dateFormat", "custom");
-c.writeConfig("customDateFormat", "dd.MM.yyyy");
+c.writeConfig("customDateFormat", "ddd d MMM");
 c.writeConfig("dateDisplayFormat", "BesideTime");
 c.writeConfig("use24hFormat", 2);
 c.writeConfig("showSeconds", 0);
