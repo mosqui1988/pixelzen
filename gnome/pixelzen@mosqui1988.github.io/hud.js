@@ -235,7 +235,7 @@ export class Hud {
                     this._rect(lx + i * 4, ly + j * 4, 4, 4, lit ? '#f6ecd4' : '#2b2850');
                 }
             }
-            this._t(b.x + b.w - 52, b.y + 40, '月' + Math.round(L.age) + '日', {fam: JP, px: 11, col: PAL.dim, w: 52, align: 'center'});
+            this._t(b.x + b.w - 52, b.y + 40, 'Ayın ' + Math.round(L.age) + '. günü', {fam: JP, px: 11, col: PAL.dim, w: 52, align: 'center'});
             y += 130;
 
             // ===== SISTEMA
