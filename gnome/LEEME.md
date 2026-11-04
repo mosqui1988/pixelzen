@@ -1,110 +1,85 @@
-# PixelZen para GNOME
+# GNOME için PixelZen
 
-Versión de PixelZen para **GNOME Shell** que incluye las dos piezas que más se echan de menos fuera de Plasma:
+PixelZen'in GNOME Shell sürümü, KDE Plasma sürümündeki iki temel özelliği GNOME masaüstüne taşır:
 
-- **Fondo animado que sigue al sol.** Es el mismo paisaje y la misma lógica que el plugin de Plasma: el sol
-  y la luna recorren el cielo según tu hora y tu ubicación, el paisaje pasa de noche a hora dorada y a día,
-  y se mueven las nubes, los pétalos, los farolillos, las luciérnagas, las grullas, las estrellas fugaces y
-  los destellos del lago.
-- **Panel de datos (HUD)** en la columna derecha, con las tarjetas Tiempo (reloj, calendario japonés y fase
-  lunar), Sistema (CPU, RAM, temperatura, batería, carga y disco), Red (wifi, IP, VPN, velocidad y puertos),
-  Dev (repos git, versiones y servicios fallidos) y Haiku. Solo lee datos, sin red y sin `sudo`.
+- **Güneşi izleyen hareketli arka plan:** Güneş ve ay, yerel saat ve konuma göre ilerler. Manzara gece, altın saat ve gündüz görünümleri arasında geçiş yapar. Bulutlar, kiraz çiçeği yaprakları, fenerler, ateş böcekleri, turnalar ve yıldız kaymaları canlanır.
+- **Sistem bilgi paneli:** Ekranın sağında saat, ay evresi, işlemci, bellek, sıcaklık, pil, yük, disk, ağ, IP, VPN, bağlantı noktaları, Git depoları, yazılım sürümleri ve hizmet durumlarını gösterir.
 
-Es una extensión de GNOME Shell, así que dibuja en el fondo real del escritorio: queda por debajo de las
-ventanas y de los iconos del escritorio de Ubuntu, en todos los monitores.
+Uzantı masaüstünün arka plan katmanında çalışır; pencerelerin ve masaüstü simgelerinin altında kalır. Birden fazla monitörde kullanılabilir.
 
-| Día | Anochecer | Noche (monitor secundario, sin panel) |
+## Ekran görüntüleri
+
+| Gündüz | Gün batımı | Gece |
 |---|---|---|
-| ![De día](../docs/capturas-gnome/gnome-dia.png) | ![Al anochecer](../docs/capturas-gnome/gnome-anochecer.png) | ![De noche](../docs/capturas-gnome/gnome-noche.png) |
+| ![Gündüz](../docs/capturas-gnome/gnome-dia.png) | ![Gün batımı](../docs/capturas-gnome/gnome-anochecer.png) | ![Gece](../docs/capturas-gnome/gnome-noche.png) |
 
-Capturas en Ubuntu 24.04 con GNOME 46 sobre X11. Los datos personales del panel están pixelados.
+Ekran görüntüleri Ubuntu 24.04, GNOME 46 ve X11 üzerinde alınmıştır. Paneldeki kişisel bilgiler gizlenmiştir.
 
-> **Mantenimiento y estado.** Este port lo mantiene [@arnau-romero-hazas](https://github.com/arnau-romero-hazas),
-> no el autor de PixelZen, que usa KDE Plasma y no puede probarlo. Los fallos de la versión GNOME conviene
-> abrirlos como issue mencionando a @arnau-romero-hazas.
->
-> **Solo está probado en Ubuntu 24.04 con GNOME 46 sobre X11.** Wayland y GNOME 47 o 48 deberían funcionar
-> (`metadata.json` los declara y el código contempla sus diferencias de API), pero nadie lo ha verificado.
+> **Bakım ve uyumluluk:** Bu GNOME aktarımını @arnau-romero-hazas sürdürmektedir. Şu ana kadar yalnızca Ubuntu 24.04 / GNOME 46 / X11 üzerinde doğrulanmıştır. Wayland ve GNOME 47–48 desteği kodda bulunsa da sınanmamıştır.
 
-## Instalar
+## Kurulum
 
-```bash
+~~~bash
 cd gnome
-./instalar.sh                                # ubicación a partir de tu zona horaria
-./instalar.sh --casa=39.5,-0.4,"Mi ciudad"   # o fija tu ubicación
-```
+./instalar.sh
+~~~
 
-Después hay que reiniciar GNOME Shell. En **X11** basta con pulsar `Alt+F2`, escribir `r` y pulsar Intro
-(no se cierra ninguna ventana). En **Wayland** hay que cerrar sesión y volver a entrar.
+Konumu elle belirlemek için:
 
-El instalador:
+~~~bash
+./instalar.sh --casa=39.5,-0.4,"Şehrim"
+~~~
 
-- Copia la extensión a `~/.local/share/gnome-shell/extensions/pixelzen@mosqui1988.github.io`.
-- Dibuja las capas del paisaje con `src/capas.py` y `src/fondo3.py`, los mismos scripts de la versión de
-  Plasma (Python puro).
-- Instala las fuentes pixel en `~/.local/share/fonts/pixelzen`.
-- Pone una imagen fija del paisaje como fondo de GNOME, que es la que se ve en Actividades y en la pantalla
-  de bloqueo. Antes guarda tu fondo anterior. Usa `--sin-fondo` si no quieres cambiarlo.
+Kurulumdan sonra GNOME Shell'i yeniden başlatın:
 
-Solo toca tu usuario y nunca usa `sudo`.
+- **X11:** Alt+F2 tuşlarına basın, r yazın ve Enter'a basın.
+- **Wayland:** Oturumu kapatıp yeniden açın.
 
-## Uso
+Kurulum betiği uzantıyı kullanıcı dizinine kopyalar, manzara katmanlarını üretir, piksel yazı tiplerini kurar ve GNOME için sabit bir arka plan ayarlar. Önceki arka planınız yedeklenir. Arka planın değiştirilmesini istemiyorsanız --sin-fondo seçeneğini kullanın.
 
-```bash
-./hora.sh 21:30   # congela la hora del fondo
-./hora.sh demo    # 24 horas en 90 segundos, para verlo anochecer
-./hora.sh real    # vuelve a la hora del reloj
-```
+Kurulum yalnızca kullanıcı hesabınızı etkiler; yönetici yetkisi kullanmaz.
 
-Más ajustes con `gsettings` (el esquema está dentro de la extensión):
+## Kullanım
 
-```bash
+~~~bash
+./hora.sh 21:30
+./hora.sh demo
+./hora.sh real
+~~~
+
+Komutlar arka plan saatini sabitler, hızlandırılmış gün döngüsünü başlatır veya gerçek saate geri döner.
+
+## Gelişmiş ayarlar
+
+Uzantı ayarları gsettings ile değiştirilebilir. Şema yolu:
+
+~~~bash
 S=~/.local/share/gnome-shell/extensions/pixelzen@mosqui1988.github.io/schemas
-gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen fps 6               # 2..24 (8 por defecto)
-gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen animar false        # fondo quieto
+~~~
+
+Örnekler:
+
+~~~bash
+gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen fps 6
+gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen animar false
 gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen todos-monitores false
-gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen hud false           # sin panel
-gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen hud-monitor 1       # panel en otro monitor
-```
+gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen hud false
+gsettings --schemadir $S set org.gnome.shell.extensions.pixelzen hud-monitor 1
+~~~
 
-## Consumo
+Animasyon hızını düşürmek veya ikincil monitörlerde görüntülemeyi kapatmak kaynak tüketimini azaltır.
 
-- **Animación:** a 8 cuadros por segundo, con las texturas compartidas entre monitores. Se pausa sola con
-  la pantalla bloqueada o cuando hay una ventana a pantalla completa en el monitor principal.
-- **Panel:** lanza `datos.py` cada 2 segundos (CPU, RAM, red) y cada 20 segundos (puertos, repos), igual
-  que el widget de Plasma.
+## Plasma sürümünden farkları
 
-Si quieres gastar menos, baja `fps` o pon `todos-monitores` a `false`.
+- GNOME sürümünde **Araçlar** kartı bulunmaz; masaüstü tıklamalarını GNOME/Ubuntu simge katmanı alır.
+- **Paket** satırı, paket listesinin en son ne zaman güncellendiğini gösterir.
+- Kilit ekranında hareketli sahne yerine sabit görüntü kullanılır.
+- Pencere süslemeleri, simgeler, imleç ve üst panel bu GNOME aktarımına dahil değildir. Simgeler ve imleç, deponun kök dizininden ./instalar.sh --portable komutuyla kurulabilir.
 
-CPU que añade a GNOME Shell, medida en un portátil con Intel Alder Lake y 3 monitores (1080p, 1080p y
-1080×1920 en vertical), en X11. Son porcentajes de un núcleo y la RAM añadida es de unos 2 MB:
+## Kaldırma
 
-| Ajuste | CPU añadida |
-|---|---|
-| `animar false` | ~0 % |
-| 4 fps, 3 monitores | ~3 % |
-| 8 fps, solo el principal | ~5 % |
-| 8 fps, 3 monitores | ~9–10 % |
-| 12 fps, 3 monitores | ~18 % |
+~~~bash
+./desinstalar.sh
+~~~
 
-Como en el plugin de Plasma, el movimiento avanza un paso por cuadro. Por eso, con más `fps` la
-animación es más fluida pero también más rápida.
-
-Los píxeles animados se dibujan con Cairo en un lienzo de 640×400, y los monitores secundarios usan
-un `Clutter.Clone` de ese lienzo. Así la escena se calcula una sola vez por cuadro, sea cual sea el
-número de monitores.
-
-## Diferencias con la versión de Plasma
-
-- La tarjeta **Herramientas** no está, porque en GNOME los clics sobre el escritorio los recibe la capa de
-  iconos de Ubuntu.
-- La línea **APT** muestra cuánto hace que se actualizó la lista de paquetes (en Arch es pacman).
-- La pantalla de bloqueo muestra la imagen fija, no la animación.
-- Las ventanas, los iconos, el cursor y la barra no forman parte de este port. Los iconos y el cursor se
-  pueden instalar con `./instalar.sh --portable` desde la raíz del repositorio.
-
-## Desinstalar
-
-```bash
-./desinstalar.sh   # quita la extensión y las fuentes y devuelve tu fondo anterior
-```
+Uzantı ve yazı tipleri kaldırılır, önceki arka plan geri yüklenir. ~/.config/pixelzen/ubicacion.json konum dosyası varsa korunur.
