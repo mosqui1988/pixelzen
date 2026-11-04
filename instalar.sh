@@ -77,5 +77,5 @@ Registro completo: $LOG"
 else
   principal
   if [ "$PORTABLE" = 1 ]; then echo "Tamamlandı. Masaüstü ayarlarından 'PixelZen' simge temasını ve 'PixelZenCursor' imlecini seçin."
-  elif [ "$APLICAR" = 1 ]; then echo "Tamamlandı. Geri almak için: $DEST/revertir.sh   |   desinstalar todo: $DEST/desinstalar.sh"; fi
+  elif [ "$APLICAR" = 1 ]; then echo "Tamamlandı. Geri almak için: $DEST/revertir.sh   |   tümünü kaldırmak için: $DEST/desinstalar.sh"; fi
 fi
