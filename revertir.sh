@@ -13,4 +13,4 @@ esq=$(kreadconfig6 --file kdeglobals --group General --key ColorScheme); [ -n "$
 tema=$(kreadconfig6 --file plasmarc --group Theme --key name); plasma-apply-desktoptheme "${tema:-default}" >/dev/null 2>&1
 qdbus6 org.kde.KWin /KWin reconfigure
 systemctl --user restart plasma-plasmashell.service 2>/dev/null || (kquitapp6 plasmashell; sleep 1; kstart plasmashell >/dev/null 2>&1 &)
-echo "PixelZen revertido. Reinicia sesion si algo se ve a medias."
+echo "PixelZen önceki hâline döndürüldü. Görünüm düzgün değilse oturumu yeniden başlatın."
