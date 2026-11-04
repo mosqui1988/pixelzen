@@ -3,8 +3,8 @@
     "KPlugin": {
         "Id": "com.ruben.pixelzen.barra",
         "Name": "PixelZen Barra",
-        "Description": "Datos del sistema en vivo para la barra superior",
-        "Category": "System Information",
+        "Description": "Üst çubuk için canlı sistem bilgileri",
+        "Category": "Sistem bilgileri",
         "Authors": [{ "Name": "Ruben" }],
         "License": "GPL-3.0+",
         "Version": "1.0",
