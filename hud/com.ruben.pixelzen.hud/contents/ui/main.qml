@@ -207,7 +207,7 @@ PlasmoidItem {
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
                     Item { width: 1; height: 1 }
-                    Item { width: parent.parent.width; height: 14; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: 220; height: 14; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
+                    Item { width: parent.parent.width; height: 24; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; height: 24; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
                     Row {
                         width: parent.parent.width
                         spacing: 0
