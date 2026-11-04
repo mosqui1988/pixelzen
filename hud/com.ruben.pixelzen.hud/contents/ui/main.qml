@@ -148,7 +148,7 @@ PlasmoidItem {
                 Text {
                     x: 0; y: 62
                     text: root.dias[root.now.getDay()] + ", " + root.now.getDate() + " " + root.aylar[root.now.getMonth()] + " " + root.now.getFullYear()
-                    font.family: Pal.jp; font.pixelSize: 12; color: Pal.rosa; renderType: Text.NativeRendering
+                    font.family: Pal.mono; font.pixelSize: 12; color: Pal.rosa; renderType: Text.NativeRendering
                 }
                 // fase lunar pixelada
                 Canvas {
@@ -169,7 +169,7 @@ PlasmoidItem {
                         }
                     }
                 }
-                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "Ayın " + Math.round(root.luna().age) + ". günü"; font.family: Pal.jp; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
+                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "Ayın " + Math.round(root.luna().age) + ". günü"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
             // ===================================================== SISTEMA
