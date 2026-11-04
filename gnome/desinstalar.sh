@@ -24,7 +24,7 @@ if [ -f "$CFG/gnome-fondo-anterior" ]; then
     gsettings set "$esquema" "$clave" "$valor"
   done < "$CFG/gnome-fondo-anterior"
   rm -f "$CFG/gnome-fondo-anterior"
-  echo "Fondo anterior restaurado."
+  echo "Önceki arka plan geri yüklendi."
 fi
 rm -f "$HOME/.local/share/backgrounds/pixelzen.png"
-echo "PixelZen para GNOME desinstalado. (Tu ~/.config/pixelzen/ubicacion.json se conserva si existe.)"
+echo "GNOME için PixelZen kaldırıldı. (Varsa ~/.config/pixelzen/ubicacion.json dosyanız korunur.)"
