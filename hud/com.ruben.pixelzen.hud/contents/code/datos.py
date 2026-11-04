@@ -133,8 +133,8 @@ def puertos():
 
 def repos(e):
     ahora = time.time()
-    if e.get('repos_t', 0) < ahora - 600:
-        raices = [os.path.expanduser(p) for p in ('~/proyectos', '~/dev', '~/code', '~/src', '~/projects', '~/workspace', '~/git', '~/Documentos', '~/Obsidian', '~/Escritorio')]
+    if e.get('repos_v') != 2 or e.get('repos_t', 0) < ahora - 600:
+        raices = [os.path.expanduser(p) for p in ('~/pixelzen', '~/proyectos', '~/dev', '~/code', '~/src', '~/projects', '~/workspace', '~/git', '~/Documentos', '~/Obsidian', '~/Escritorio')]
         encontrados = []
         for r in raices:
             if not os.path.isdir(r): continue
@@ -142,7 +142,7 @@ def repos(e):
                 if dp[len(r):].count(os.sep) >= 3: dn[:] = []; continue
                 if '.git' in dn: encontrados.append(dp); dn[:] = []
                 else: dn[:] = [x for x in dn if not x.startswith('.') and x not in ('node_modules', 'venv', '.venv', 'target')]
-        e['repos_l'] = encontrados[:8]; e['repos_t'] = ahora
+        e['repos_l'] = encontrados[:8]; e['repos_t'] = ahora; e['repos_v'] = 2
     out = []
     for r in e.get('repos_l', []):
         b = sh(['git', '-C', r, 'rev-parse', '--abbrev-ref', 'HEAD']).strip()

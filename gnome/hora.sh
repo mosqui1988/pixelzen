@@ -8,7 +8,7 @@ case "${1:-real}" in
   real) g hora-simulada -1; g ciclo-rapido false;;
   demo|ciclo) g hora-simulada -1; g ciclo-rapido true;;
   *) h=${1%%:*}; m=${1##*:}; [ "$h" = "$1" ] && m=0
-     [[ "$h" =~ ^[0-9]{1,2}$ && "$m" =~ ^[0-9]{1,2}$ ]] || { echo "uso: hora.sh HH:MM | real | demo" >&2; exit 2; }
+     [[ "$h" =~ ^[0-9]{1,2}$ && "$m" =~ ^[0-9]{1,2}$ ]] || { echo "Kullanım: hora.sh SS:DD | real | demo" >&2; exit 2; }
      g ciclo-rapido false; g hora-simulada "$(python3 -c "print(int('$h') + int('$m') / 60)")";;
 esac
-echo "fondo: hora=${1:-real}"
+echo "Arka plan saati: ${1:-real}"

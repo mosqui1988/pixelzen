@@ -16,7 +16,7 @@ Item {
     }
     Row {
         x: card.pad; y: 7; spacing: 7
-        Text { text: card.kanji; font.family: Pal.jp; font.pixelSize: 14; color: Pal.rosa; renderType: Text.NativeRendering }
+        
         Text { text: card.title; font.family: Pal.mono; font.pixelSize: 11; font.letterSpacing: 1; color: Pal.dim; y: 3; renderType: Text.NativeRendering }
     }
     Text {

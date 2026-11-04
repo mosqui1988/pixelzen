@@ -60,5 +60,5 @@ portable() { fuentes_inst; python3 -I "$R/src/iconos.py" >/dev/null; mkdir -p "$
              mkdir -p "$HOME/.icons"; ln -sfn "$D/icons/PixelZenCursor" "$HOME/.icons/PixelZenCursor"; }   # sin tocar ajustes de Plasma
 
 if [ "$paso" = todo ]; then respaldo; fuentes_inst; colores; plasma; ventanas; fuentes; terminal; iconos; cursor; animado; hud; panel; bloqueo; else respaldo; "$paso"; fi
-if [ "$paso" = portable ]; then echo "PixelZen: iconos, cursor y fuentes instalados (no se ha tocado ningun ajuste)."
-else echo "PixelZen: paso '$paso' aplicado. Para volver atras: $R/revertir.sh"; fi
+if [ "$paso" = portable ]; then echo "PixelZen: simgeler, imleç ve yazı tipleri kuruldu (hiçbir ayar değiştirilmedi)."
+else echo "PixelZen: paso '$paso' uygulandı. Geri almak için: $R/revertir.sh"; fi

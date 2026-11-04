@@ -10,4 +10,4 @@ qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
   var ds = desktops();
   for (var i = 0; i < ds.length; i++) { ds[i].currentConfigGroup = ['Wallpaper', 'com.ruben.pixelzen.wallpaper', 'General'];
     ds[i].writeConfig('HoraSimulada', $val); ds[i].writeConfig('CicloRapido', $demo); ds[i].reloadConfig(['Wallpaper', 'com.ruben.pixelzen.wallpaper', 'General']); }" >/dev/null
-echo "fondo: hora=${1:-real}"
+echo "Arka plan saati: ${1:-real}"

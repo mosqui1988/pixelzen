@@ -24,7 +24,7 @@ export default class PixelZenExtension extends Extension {
         try {
             this._escena = new Escena(this.path, this._raiz, this._settings);
         } catch (e) {
-            logError(e, 'PixelZen: no encuentro las capas del fondo; ejecuta gnome/instalar.sh');
+            logError(e, 'PixelZen: arka plan katmanları bulunamadı; gnome/instalar.sh dosyasını çalıştırın');
             this._escena = null;
         }
         this._hud = null;

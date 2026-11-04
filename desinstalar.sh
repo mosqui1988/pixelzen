@@ -9,5 +9,5 @@ rm -rf "$D/icons/PixelZen" "$D/icons/PixelZenCursor" "$HOME/.icons/PixelZenCurso
        "$D/plasma/plasmoids/com.ruben.pixelzen.hud" "$D/plasma/plasmoids/com.ruben.pixelzen.barra" "$D/color-schemes/PixelZen.colors" \
        "$D/aurorae/themes/PixelZen" "$D/konsole/PixelZen.colorscheme" "$D/konsole/PixelZen.profile" "$D/fonts/pixelzen"
 fc-cache -f "$D/fonts" >/dev/null 2>&1
-if [ "${1:-}" = "--todo" ]; then rm -rf "$HOME/.config/pixelzen"; cp -r "$R/backup" /tmp/pixelzen-backup-final 2>/dev/null; rm -rf "$R"; echo "Borrado todo. Copia de tus ajustes originales en /tmp/pixelzen-backup-final"; fi
-echo "PixelZen desinstalado."
+if [ "${1:-}" = "--todo" ]; then rm -rf "$HOME/.config/pixelzen"; cp -r "$R/backup" /tmp/pixelzen-backup-final 2>/dev/null; rm -rf "$R"; echo "Her şey silindi. Özgün ayarlarınızın yedeği: /tmp/pixelzen-backup-final"; fi
+echo "PixelZen kaldırıldı."
