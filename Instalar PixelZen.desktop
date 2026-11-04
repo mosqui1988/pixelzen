@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=Instalar PixelZen
-Comment=Instala el tema PixelZen para KDE Plasma 6
+Name=PixelZen'i Kur
+Comment=KDE Plasma 6 için PixelZen temasını kurar
 Exec=sh -c "cd \\"\\${1%%/*}\\" && exec ./instalar.sh --grafico" _ %k
 Icon=preferences-desktop-theme
 Terminal=false
