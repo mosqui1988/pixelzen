@@ -259,7 +259,7 @@ export class Hud {
             y += 196;
 
             // ===== RED
-            b = this._card(y, 192, '網', 'AĞ', net.iface ?? 'sin red');
+            b = this._card(y, 192, '網', 'AĞ', net.iface ?? 'Ağ yok');
             fy = b.y;
             for (let i = 0; i < 4; i++) {
                 const on = net.senal !== null && net.senal !== undefined && net.senal >= (i + 1) * 25 - 10;
@@ -291,13 +291,13 @@ export class Hud {
                 this._t(px + 5, fy + 1, txt, {px: 11, col: pt.local ? PAL.dim : PAL.amber});
                 px += tw + 4;
             }
-            this._pares(b.x, y + 192 - 11 - 16, [['CONN', s.est ?? 0], ['LAN', (s.vecinos ?? 0) + ' cihaz'], ['DNS', s.dns ?? '--']]);
+            this._pares(b.x, y + 192 - 11 - 16, [['BAĞL.', s.est ?? 0], ['YEREL AĞ', (s.vecinos ?? 0) + ' cihaz'], ['DNS', s.dns ?? '--']]);
             y += 202;
 
             // ===== DEV
             const repos = s.repos ?? [];
             const hDev = 100 + Math.max(0, repos.length - 1) * 17;
-            b = this._card(y, hDev, '開', 'DEV', s.kernel ? 'linux ' + s.kernel : '');
+            b = this._card(y, hDev, '開', 'GELİŞTİRME', s.kernel ? 'linux ' + s.kernel : '');
             fy = b.y;
             if (!repos.length) { this._val(b.x, fy, 'workspace, dev veya src içinde Git deposu yok', {col: PAL.faint}); fy += 17; }
             for (const r of repos) {
