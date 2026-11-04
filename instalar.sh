@@ -45,7 +45,7 @@ fi
 principal() {
   echo "==> Copiando a $DEST"
   mkdir -p "$DEST"
-  for x in src hud fondo-animado fuentes vendor licencias aplicar.sh revertir.sh desinstalar.sh LEEME.md; do rm -rf "${DEST:?}/$x"; cp -a "$AQUI/$x" "$DEST/$x"; done
+  for x in src hud fondo-animado fuentes vendor licencias aplicar.sh revertir.sh desinstalar.sh README.md; do rm -rf "${DEST:?}/$x"; cp -a "$AQUI/$x" "$DEST/$x"; done
   chmod +x "$DEST"/*.sh "$DEST"/src/*.sh 2>/dev/null || true
   if [ -n "$CASA" ]; then
     IFS=',' read -r lat lon nombre <<<"$CASA"; tz="$(timedatectl show -p Timezone --value 2>/dev/null || echo '')"
