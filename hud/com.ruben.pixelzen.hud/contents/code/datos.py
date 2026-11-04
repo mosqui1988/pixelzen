@@ -134,7 +134,7 @@ def puertos():
 def repos(e):
     ahora = time.time()
     if e.get('repos_t', 0) < ahora - 600:
-        raices = [os.path.expanduser(p) for p in ('~/proyectos', '~/dev', '~/code', '~/src', '~/projects', '~/workspace', '~/git', '~/Documentos', '~/Obsidian', '~/Escritorio')]
+        raices = [os.path.expanduser(p) for p in ('~/pixelzen', '~/proyectos', '~/dev', '~/code', '~/src', '~/projects', '~/workspace', '~/git', '~/Documentos', '~/Obsidian', '~/Escritorio')]
         encontrados = []
         for r in raices:
             if not os.path.isdir(r): continue
