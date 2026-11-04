@@ -59,6 +59,7 @@ PlasmoidItem {
     }
     readonly property var dias: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"]
     readonly property var meses: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
+    readonly property var aylar: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
     readonly property var haikus: [
         { jp: "古池や 蛙飛びこむ 水の音", es: "Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.", au: "Bashō" },
         { jp: "閑さや 岩にしみ入る 蝉の声", es: "Sessizlik; ağustos böceğinin sesi kayaya işler.", au: "Bashō" },
@@ -146,7 +147,7 @@ PlasmoidItem {
                 }
                 Text {
                     x: 0; y: 62
-                    text: "令和" + root.kan(root.now.getFullYear() - 2018) + "年 " + root.kan(root.now.getMonth() + 1) + "月" + root.kan(root.now.getDate()) + "日 " + "日月火水木金土"[root.now.getDay()] + "曜日"
+                    text: root.dias[root.now.getDay()] + ", " + root.now.getDate() + " " + root.aylar[root.now.getMonth()] + " " + root.now.getFullYear()
                     font.family: Pal.jp; font.pixelSize: 12; color: Pal.rosa; renderType: Text.NativeRendering
                 }
                 // fase lunar pixelada
@@ -195,7 +196,7 @@ PlasmoidItem {
                     }
                     Row { spacing: 8
                         visible: root.d.bat !== null
-                        Etq { width: 30; text: root.d.bat && root.d.bat.estado === "Charging" ? "CAR" : "BAT"; y: 3 }
+                        Etq { width: 30; text: root.d.bat && root.d.bat.estado === "Charging" ? "ŞAR" : "BAT"; y: 3 }
                         SegBar { width: 178; value: root.d.bat ? root.d.bat.pct : 0; y: 3; invert: true; c1: Pal.green }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
@@ -265,7 +266,7 @@ PlasmoidItem {
             // ===================================================== DEV
             Card {
                 width: parent.width; height: 100 + Math.max(0, (root.s.repos ? root.s.repos.length : 0) - 1) * 17
-                kanji: "開"; title: "DEV"
+                kanji: "開"; title: "GELİŞTİRME"
                 meta: root.s.kernel ? "linux " + root.s.kernel : ""
                 Column {
                     spacing: 3
@@ -305,11 +306,11 @@ PlasmoidItem {
                 Grid {
                     columns: 4; spacing: 6
                     PxBtn { width: 74; height: 28; kanji: "監"; label: "BTOP"; activo: !!root.s.tools.btop; onClicked: root.term("btop") }
-                    PxBtn { width: 74; height: 28; kanji: "口"; label: "PUERTOS"; onClicked: root.term("ss -tulpn") }
-                    PxBtn { width: 74; height: 28; kanji: "網"; label: "RED"; onClicked: root.term("ip -br a; echo; ip r; echo; resolvectl status | head -20") }
+                    PxBtn { width: 74; height: 28; kanji: "口"; label: "BAĞLANTILAR"; onClicked: root.term("ss -tulpn") }
+                    PxBtn { width: 74; height: 28; kanji: "網"; label: "AĞ"; onClicked: root.term("ip -br a; echo; ip r; echo; resolvectl status | head -20") }
                     PxBtn { width: 74; height: 28; kanji: "報"; label: "FETCH"; activo: !!root.s.tools.fastfetch; onClicked: root.term("fastfetch") }
                     PxBtn { width: 74; height: 28; kanji: "名"; label: "DNS"; activo: !!root.s.tools.dig; onClicked: root.term("dig archlinux.org +noall +answer +stats") }
-                    PxBtn { width: 74; height: 28; kanji: "隣"; label: "EQUIPOS"; onClicked: root.term("ip neigh") }
+                    PxBtn { width: 74; height: 28; kanji: "隣"; label: "CİHAZ"; onClicked: root.term("ip neigh") }
                     PxBtn { width: 74; height: 28; kanji: "脈"; label: "PING"; onClicked: root.term("ping -c 4 1.1.1.1") }
                     PxBtn {
                         width: 74; height: 28; kanji: "探"; label: root.s.tools.nmap ? "NMAP" : "NMAP +"
