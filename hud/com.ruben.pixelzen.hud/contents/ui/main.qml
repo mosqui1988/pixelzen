@@ -169,7 +169,7 @@ PlasmoidItem {
                         }
                     }
                 }
-                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "月" + Math.round(root.luna().age) + "日"; font.family: Pal.jp; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
+                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "Ayın " + Math.round(root.luna().age) + ". günü"; font.family: Pal.jp; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
             // ===================================================== SISTEMA
