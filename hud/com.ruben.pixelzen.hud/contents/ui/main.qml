@@ -180,11 +180,11 @@ PlasmoidItem {
 
             // ===================================================== SISTEMA
             Card {
-                width: parent.width; height: 166
+                width: parent.width; height: 176
                 kanji: "機"; title: "SİSTEM"
                 meta: root.d.up ? "ÇALIŞMA " + root.durac(root.d.up) : ""
                 Column {
-                    spacing: 5
+                    spacing: 3
                     Row { spacing: 8
                         Etq { width: 42; text: "CPU"; y: 3 }
                         SegBar { width: 166; value: root.d.cpu; y: 3 }
@@ -207,12 +207,12 @@ PlasmoidItem {
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
                     Item { width: 1; height: 1 }
-                    Item { width: parent.parent.width; height: 20; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: 220; height: 20; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
+                    Item { width: parent.parent.width; height: 14; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: 220; height: 14; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
                     Row {
                         width: parent.parent.width
                         spacing: 0
                         Item {
-                            width: parent.width / 3; height: 30
+                            width: parent.width / 3; height: 24
                             Column { anchors.centerIn: parent; spacing: 2
                                 Etq { width: parent.width; text: "YÜK"; horizontalAlignment: Text.AlignHCenter }
                                 Val { width: parent.width; text: root.d.load[0].toFixed(2); font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
