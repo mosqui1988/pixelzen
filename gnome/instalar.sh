@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # PixelZen para GNOME (Ubuntu 24.04+): fondo animado que sigue al sol + panel de datos.
-#   ./instalar.sh                                instala la extension (ubicacion por zona horaria)
+#   ./instalar.sh                                uzantıyı kurar (konum saat diliminden alınır)
 #   ./instalar.sh --casa=39.5,-0.4,"Mi ciudad"   fija tu ubicacion
 #   ./instalar.sh --sin-fondo                    no cambia el fondo estatico de GNOME
 # Solo toca tu usuario, nunca usa sudo. Para deshacer: ./desinstalar.sh
