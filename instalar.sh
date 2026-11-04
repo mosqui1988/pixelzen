@@ -38,7 +38,7 @@ if [ "$GRAFICO" = 1 ]; then
   if [ "$PORTABLE" = 1 ]; then txt="PixelZen simgeleri, imleci ve yazı tipleri kurulacak."
   else txt="Se instalara el tema PixelZen: fondo animado, panel de datos, iconos, cursor y ventanas.
 
-Antes guarda una copia de tus ajustes y se puede deshacer. No usa sudo. Tarda alrededor de un minuto y el escritorio se recargara."; fi
+Önce ayarlarınızın yedeğini alır; işlemi geri alabilirsiniz. Yönetici yetkisi kullanmaz. Yaklaşık bir dakika sürer ve masaüstü yeniden yüklenir."; fi
   dialogo yesno "$txt" || exit 0
 fi
 
