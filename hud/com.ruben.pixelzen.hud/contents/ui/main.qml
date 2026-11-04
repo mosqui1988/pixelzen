@@ -308,7 +308,7 @@ PlasmoidItem {
                     PxBtn { width: 74; height: 28; kanji: "監"; label: "BTOP"; activo: !!root.s.tools.btop; onClicked: root.term("btop") }
                     PxBtn { width: 74; height: 28; kanji: "口"; label: "BAĞLANTILAR"; onClicked: root.term("ss -tulpn") }
                     PxBtn { width: 74; height: 28; kanji: "網"; label: "AĞ"; onClicked: root.term("ip -br a; echo; ip r; echo; resolvectl status | head -20") }
-                    PxBtn { width: 74; height: 28; kanji: "報"; label: "FETCH"; activo: !!root.s.tools.fastfetch; onClicked: root.term("fastfetch") }
+                    PxBtn { width: 74; height: 28; kanji: "報"; label: "ÖZET"; activo: !!root.s.tools.fastfetch; onClicked: root.term("fastfetch") }
                     PxBtn { width: 74; height: 28; kanji: "名"; label: "DNS"; activo: !!root.s.tools.dig; onClicked: root.term("dig archlinux.org +noall +answer +stats") }
                     PxBtn { width: 74; height: 28; kanji: "隣"; label: "CİHAZ"; onClicked: root.term("ip neigh") }
                     PxBtn { width: 74; height: 28; kanji: "脈"; label: "PING"; onClicked: root.term("ping -c 4 1.1.1.1") }
