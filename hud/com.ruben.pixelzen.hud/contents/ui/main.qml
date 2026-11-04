@@ -134,7 +134,7 @@ PlasmoidItem {
             // ===================================================== RELOJ
             Card {
                 width: parent.width; height: 120
-                kanji: "時"; title: "ZAMAN"; meta: root.s.host ? root.s.host : ""
+                kanji: "時"; title: "SAAT"; meta: root.s.host ? root.s.host : ""
                 Text {
                     x: -2; y: -2
                     text: root.p2(root.now.getHours()) + ":" + root.p2(root.now.getMinutes())
@@ -159,7 +159,7 @@ PlasmoidItem {
                 // fase lunar pixelada
                 Canvas {
                     id: luna
-                    x: parent.width - 44; y: 2; width: 36; height: 36
+                    x: parent.width - 82; y: 2; width: 36; height: 36
                     property real p: root.luna().p
                     onPChanged: requestPaint()
                     onPaint: {
@@ -175,14 +175,14 @@ PlasmoidItem {
                         }
                     }
                 }
-                Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.luna().age) + " gün"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
+                Text { x: parent.width - 84; y: 40; width: 40; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.luna().age) + " gün"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
             // ===================================================== SISTEMA
             Card {
-                width: parent.width; height: 186
+                width: parent.width; height: 166
                 kanji: "機"; title: "SİSTEM"
-                meta: root.d.up ? "AÇIK " + root.durac(root.d.up) : ""
+                meta: root.d.up ? "ÇALIŞMA " + root.durac(root.d.up) : ""
                 Column {
                     spacing: 5
                     Row { spacing: 8
@@ -207,7 +207,7 @@ PlasmoidItem {
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
                     Item { width: 1; height: 1 }
-                    Spark { width: parent.parent.width; height: 24; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa }
+                    Item { width: parent.parent.width; height: 20; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: 220; height: 20; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
                     Row {
                         width: parent.parent.width
                         spacing: 0
@@ -328,7 +328,7 @@ PlasmoidItem {
             Card {
                 width: parent.width; height: 104
                 kanji: "道"; title: "ARAÇLAR"
-                meta: "Açmak için tıkla"
+                meta: ""
                 Grid {
                     columns: 4; spacing: 6
                     PxBtn { width: 74; height: 28; kanji: "監"; label: "SÜREÇ"; activo: !!root.s.tools.btop; onClicked: root.term("btop") }
@@ -348,8 +348,8 @@ PlasmoidItem {
 
             // ===================================================== HAIKU
             Card {
-                width: parent.width; height: 92
-                kanji: "句"; title: "KISA ŞİİR"; meta: root.haikus[root.hk].au
+                width: parent.width; height: 90
+                kanji: "句"; title: "HAİKU"; meta: root.haikus[root.hk].au
                 Item {
                     opacity: root.hkOp
                     width: parent.width; height: parent.height
