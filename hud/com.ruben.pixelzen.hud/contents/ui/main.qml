@@ -159,7 +159,7 @@ PlasmoidItem {
                 // fase lunar pixelada
                 Canvas {
                     id: luna
-                    x: parent.width - 82; y: 2; width: 36; height: 36
+                    x: parent.width - 82; y: 18; width: 36; height: 36
                     property real p: root.luna().p
                     onPChanged: requestPaint()
                     onPaint: {
@@ -175,16 +175,16 @@ PlasmoidItem {
                         }
                     }
                 }
-                Text { x: parent.width - 84; y: 40; width: 40; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.luna().age) + " gün"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
+                Text { x: parent.width - 84; y: 56; width: 40; horizontalAlignment: Text.AlignHCenter; text: Math.round(root.luna().age) + " gün"; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
             // ===================================================== SISTEMA
             Card {
-                width: parent.width; height: 176
+                width: parent.width; height: 160
                 kanji: "機"; title: "SİSTEM"
                 meta: root.d.up ? "ÇALIŞMA " + root.durac(root.d.up) : ""
                 Column {
-                    spacing: 3
+                    spacing: 2
                     Row { spacing: 8
                         Etq { width: 42; text: "CPU"; y: 3 }
                         SegBar { width: 166; value: root.d.cpu; y: 3 }
@@ -207,7 +207,7 @@ PlasmoidItem {
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
                     Item { width: 1; height: 1 }
-                    Item { width: parent.parent.width; height: 24; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; height: 24; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
+                    Item { width: parent.parent.width; height: 20; Spark { anchors.horizontalCenter: parent.horizontalCenter; width: parent.width; height: 20; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa } }
                     Row {
                         width: parent.parent.width
                         spacing: 0
@@ -219,7 +219,7 @@ PlasmoidItem {
                             }
                         }
                         Item {
-                            width: parent.width / 3; height: 30
+                            width: parent.width / 3; height: 22
                             Column { anchors.centerIn: parent; spacing: 2
                                 Etq { width: parent.width; text: "DİSK"; horizontalAlignment: Text.AlignHCenter }
                                 Val { width: parent.width; text: Math.round(root.d.disco) + "%"; font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
