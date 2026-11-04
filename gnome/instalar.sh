@@ -20,7 +20,7 @@ for a in "$@"; do case "$a" in
 esac; done
 
 for c in gnome-shell python3 glib-compile-schemas gsettings fc-cache; do
-  command -v "$c" >/dev/null || { echo "Falta '$c'. GNOME için PixelZen, GNOME Shell 46 veya üstünü gerektirir." >&2; exit 1; }
+  command -v "$c" >/dev/null || { echo "'$c' komutu bulunamadı. GNOME için PixelZen, GNOME Shell 46 veya üstünü gerektirir." >&2; exit 1; }
 done
 ver="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 [ "${ver:-0}" -ge 46 ] || { echo "GNOME Shell $ver desteklenmiyor (en az 46 gerekir)." >&2; exit 1; }
