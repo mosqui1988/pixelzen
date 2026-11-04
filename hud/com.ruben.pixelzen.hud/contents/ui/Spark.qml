@@ -9,11 +9,13 @@ Item {
     clip: true
     Row {
         anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width
         spacing: 1
         Repeater {
             model: sp.cols
             Item {
-                width: Math.floor((sp.width - sp.cols) / sp.cols); height: sp.height
+                width: (sp.width - (sp.cols - 1)) / sp.cols; height: sp.height
                 property real v: { var i = sp.serie.length - sp.cols + index; return (i >= 0 && i < sp.serie.length) ? sp.serie[i] : 0 }
                 Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: 1; color: Pal.line }
                 Rectangle {
