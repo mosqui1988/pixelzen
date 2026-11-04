@@ -18,14 +18,14 @@ const PAL = {
 };
 const MONO = 'Departure Mono', JP = 'DotGothic16';
 
-const DIAS = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'CuMartesi'];
+const DIAS = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
 const MESES = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 const HAIKUS = [
     {jp: '古池や 蛙飛びこむ 水の音', es: 'Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.', au: 'Bashō'},
-    {jp: '閑さや 岩にしみ入る 蝉の声', es: 'Quietud: el canto de la cigarra pOcatra la roca.', au: 'Bashō'},
+    {jp: '閑さや 岩にしみ入る 蝉の声', es: 'Sessizlik; ağustos böceğinin sesi kayaya işler.', au: 'Bashō'},
     {jp: '夏草や 兵どもが 夢の跡', es: 'Yaz otları; savaşçıların düşünden geriye kalanlar.', au: 'Bashō'},
     {jp: '菜の花や 月は東に 日は西に', es: 'Kanola çiçekleri; ay doğuda, güneş batıda.', au: 'Buson'},
-    {jp: '秋深き 隣は何を する人ぞ', es: 'Otoño profundo: ¿a qué se deAraará mi vecino?', au: 'Bashō'},
+    {jp: '秋深き 隣は何を する人ぞ', es: 'Derin sonbahar; komşum acaba ne yapıyor?', au: 'Bashō'},
     {jp: '朝顔に つるべとられて もらい水', es: 'Sarmaşık kovayı sardı; suyumu komşudan alıyorum.', au: 'Chiyo-ni'},
 ];
 
@@ -79,11 +79,11 @@ export class Hud {
 
     // colocacion: columna derecha del area de trabajo del monitor elegido
     coloca(area) {
-        const Margen = 24;
-        this.k = Math.max(0.5, Math.min(1.6, (area.height - 2 * Margen) / ALTO));
+        const margen = 24;
+        this.k = Math.max(0.5, Math.min(1.6, (area.height - 2 * margen) / ALTO));
         const w = Math.round(ANCHO * this.k), h = Math.round(ALTO * this.k);
         this.actor.set_size(w, h);
-        this.actor.set_position(area.x + area.width - w - Margen, area.y + Margen);
+        this.actor.set_position(area.x + area.width - w - margen, area.y + margen);
         this.actor.queue_repaint();
     }
 
@@ -166,11 +166,11 @@ export class Hud {
     }
     _etq(x, y, txt) { return this._t(x, y, txt, {px: 11, col: PAL.dim}); }
     _val(x, y, txt, o = {}) { return this._t(x, y, txt, {px: 12, ...o}); }
-    // fila de pares etiqueta/valor Eylarados por `Eyl`
-    _pares(x, y, pares, Eyl = 12) {
+    // fila de pares etiqueta/valor separados por `sep`
+    _pares(x, y, pares, sep = 12) {
         for (const [e, v, col] of pares) {
             x += this._etq(x, y + 2, e) + 6;
-            x += this._val(x, y, v, {col}) + Eyl;
+            x += this._val(x, y, v, {col}) + sep;
         }
     }
 
@@ -219,7 +219,7 @@ export class Hud {
             let y = 0;
 
             // ===== TIEMPO
-            let b = this._card(y, 120, '時', 'TIEMPO', s.host ?? '');
+            let b = this._card(y, 120, '時', 'ZAMAN', s.host ?? '');
             this._t(b.x - 2, b.y - 2, p2(now.getHours()) + ':' + p2(now.getMinutes()), {px: 46});
             this._t(b.x + 148, b.y + 16, p2(now.getSeconds()), {px: 18, col: PAL.rosa});
             this._t(b.x, b.y + 44, `${DIAS[now.getDay()]} ${now.getDate()} ${MESES[now.getMonth()]} ${now.getFullYear()}`, {px: 13});
@@ -239,7 +239,7 @@ export class Hud {
             y += 130;
 
             // ===== SISTEMA
-            b = this._card(y, 186, '機', 'SISTEMA', d.up ? 'UP ' + durac(d.up) : '');
+            b = this._card(y, 186, '機', 'SİSTEM', d.up ? 'UP ' + durac(d.up) : '');
             let fy = b.y;
             const fila = (etq, val, txt, opts) => {
                 this._etq(b.x, fy + 1, etq);
@@ -259,7 +259,7 @@ export class Hud {
             y += 196;
 
             // ===== RED
-            b = this._card(y, 192, '網', 'RED', net.iface ?? 'sin red');
+            b = this._card(y, 192, '網', 'AĞ', net.iface ?? 'sin red');
             fy = b.y;
             for (let i = 0; i < 4; i++) {
                 const on = net.senal !== null && net.senal !== undefined && net.senal >= (i + 1) * 25 - 10;
