@@ -50,7 +50,7 @@ PlasmoidItem {
 
     function tasa(b) { return b >= 1048576 ? (b / 1048576).toFixed(1) + "M" : b >= 1024 ? Math.round(b / 1024) + "K" : b + "B" }
     function horas(m) { return m > 0 ? Math.floor(m / 60) + "h" + p2(m % 60) : "--" }
-    function durac(s) { var dd = Math.floor(s / 86400), hh = Math.floor(s % 86400 / 3600), mm = Math.floor(s % 3600 / 60); return dd > 0 ? dd + "d" + hh + "h" : hh + "h" + p2(mm) }
+    function durac(s) { var dd = Math.floor(s / 86400), hh = Math.floor(s % 86400 / 3600), mm = Math.floor(s % 3600 / 60); return dd > 0 ? dd + " gün " + hh + " sa" : hh > 0 ? hh + " sa " + mm + " dk" : mm + " dk" }
     function luna() {
         var syn = 29.530588853, ref = Date.UTC(2000, 0, 6, 18, 14) / 86400000
         var age = (((Date.now() / 86400000 - ref) % syn) + syn) % syn
@@ -60,12 +60,12 @@ PlasmoidItem {
     readonly property var meses: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
     readonly property var aylar: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
     readonly property var haikus: [
-        { tr: "Durgun gölde bir halka; suya düşen yapraktan.", au: "PixelZen" },
-        { tr: "Gece serin, yıldızlar yakın; şehir yavaşça susar.", au: "PixelZen" },
-        { tr: "Sonbahar rüzgârı; dalda kalan son yaprak.", au: "PixelZen" },
-        { tr: "Ay ışığı düşer; sessiz sokaklarda bir kedi.", au: "PixelZen" },
-        { tr: "Yağmur diner, toprak kokar; sabah yeniden başlar.", au: "PixelZen" },
-        { tr: "Uzakta bir tren; akşamın içinden geçer.", au: "PixelZen" }
+        { jp: "古池や 蛙飛びこむ 水の音", tr: "Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.", au: "Bashō" },
+        { jp: "閑さや 岩にしみ入る 蝉の声", tr: "Sessizlik; ağustos böceğinin sesi kayaya işler.", au: "Bashō" },
+        { jp: "夏草や 兵どもが 夢の跡", tr: "Yaz otları; savaşçıların düşünden geriye kalanlar.", au: "Bashō" },
+        { jp: "菜の花や 月は東に 日は西に", tr: "Kanola çiçekleri; ay doğuda, güneş batıda.", au: "Buson" },
+        { jp: "秋深き 隣は何を する人ぞ", tr: "Derin sonbahar; komşum acaba ne yapıyor?", au: "Bashō" },
+        { jp: "朝顔に つるべとられて もらい水", tr: "Sarmaşık kovayı sardı; suyumu komşudan alıyorum.", au: "Chiyo-ni" }
     ]
     property int hk: Math.floor(Date.now() / 90000) % haikus.length
     Timer { interval: 90000; running: true; repeat: true; onTriggered: hkAnim.restart() }
@@ -92,11 +92,17 @@ PlasmoidItem {
             border.color: ma.containsMouse && b.activo ? Pal.rosa : Pal.border
             Rectangle { x: 0; y: 0; width: 4; height: 1; color: b.activo ? Pal.red : Pal.faint }
             Rectangle { x: 0; y: 0; width: 1; height: 4; color: b.activo ? Pal.red : Pal.faint }
-            Column {
+            Text {
                 anchors.centerIn: parent
-                spacing: -1
-                Text { anchors.horizontalCenter: parent.horizontalCenter; text: b.label; font.family: Pal.mono; font.pixelSize: 10; color: b.activo ? Pal.text : Pal.faint; renderType: Text.NativeRendering; elide: Text.ElideRight; width: b.width - 6; horizontalAlignment: Text.AlignHCenter }
-                Text { anchors.horizontalCenter: parent.horizontalCenter; text: b.label; font.family: Pal.mono; font.pixelSize: 11; color: b.activo ? Pal.text : Pal.faint; renderType: Text.NativeRendering }
+                width: b.width - 8
+                text: b.label
+                font.family: Pal.mono
+                font.pixelSize: 10
+                color: b.activo ? Pal.text : Pal.faint
+                renderType: Text.NativeRendering
+                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
         }
         MouseArea { id: ma; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: b.clicked() }
@@ -180,32 +186,52 @@ PlasmoidItem {
                 Column {
                     spacing: 5
                     Row { spacing: 8
-                        Etq { width: 30; text: "CPU"; y: 3 }
-                        SegBar { width: 178; value: root.d.cpu; y: 3 }
+                        Etq { width: 42; text: "CPU"; y: 3 }
+                        SegBar { width: 166; value: root.d.cpu; y: 3 }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: Math.round(root.d.cpu) + "%  " + root.d.nuc + "c" }
                     }
                     Row { spacing: 8
-                        Etq { width: 30; text: "RAM"; y: 3 }
-                        SegBar { width: 178; value: root.d.ram.pct; y: 3 }
+                        Etq { width: 42; text: "RAM"; y: 3 }
+                        SegBar { width: 166; value: root.d.ram.pct; y: 3 }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.ram.usado + "/" + Math.round(root.d.ram.total) + "G" }
                     }
                     Row { spacing: 8
                         Etq { width: 42; text: "ISI"; y: 3 }
-                        SegBar { width: 178; value: root.d.temp ? (root.d.temp - 30) / 60 * 100 : 0; y: 3; c1: Pal.cyan; c2: Pal.amber; c3: Pal.hot }
+                        SegBar { width: 166; value: root.d.temp ? (root.d.temp - 30) / 60 * 100 : 0; y: 3; c1: Pal.cyan; c2: Pal.amber; c3: Pal.hot }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: (root.d.temp ? root.d.temp.toFixed(0) : "--") + "°C" }
                     }
                     Row { spacing: 8
                         visible: root.d.bat !== null
                         Etq { width: 42; text: root.d.bat && root.d.bat.estado === "Charging" ? "ŞARJ" : "PİL"; y: 3 }
-                        SegBar { width: 178; value: root.d.bat ? root.d.bat.pct : 0; y: 3; invert: true; c1: Pal.green }
+                        SegBar { width: 166; value: root.d.bat ? root.d.bat.pct : 0; y: 3; invert: true; c1: Pal.green }
                         Val { width: 80; horizontalAlignment: Text.AlignRight; text: root.d.bat ? root.d.bat.pct + "% " + root.horas(root.d.bat.min) : "" }
                     }
                     Item { width: 1; height: 1 }
                     Spark { width: parent.parent.width; height: 24; serie: root.cpuH; cols: 56; maxv: Math.max(12, Math.max.apply(null, root.cpuH.length ? root.cpuH : [0])); color: Pal.rosa }
-                    Row { spacing: 14
-                        Etq { text: "YÜK"; y: 2 } Val { text: root.d.load[0].toFixed(2); font.pixelSize: 12 }
-                        Etq { text: "DİSK"; y: 2 } Val { text: Math.round(root.d.disco) + "%"; font.pixelSize: 12 }
-                        Etq { text: "İŞLEM"; y: 2 } Val { text: root.d.top && root.d.top.length ? root.d.top[0][0].substring(0, 8) : "--"; font.pixelSize: 12; color: Pal.amber }
+                    Row {
+                        width: parent.parent.width
+                        spacing: 0
+                        Item {
+                            width: parent.width / 3; height: 30
+                            Column { anchors.centerIn: parent; spacing: 2
+                                Etq { width: parent.width; text: "YÜK"; horizontalAlignment: Text.AlignHCenter }
+                                Val { width: parent.width; text: root.d.load[0].toFixed(2); font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
+                            }
+                        }
+                        Item {
+                            width: parent.width / 3; height: 30
+                            Column { anchors.centerIn: parent; spacing: 2
+                                Etq { width: parent.width; text: "DİSK"; horizontalAlignment: Text.AlignHCenter }
+                                Val { width: parent.width; text: Math.round(root.d.disco) + "%"; font.pixelSize: 12; horizontalAlignment: Text.AlignHCenter }
+                            }
+                        }
+                        Item {
+                            width: parent.width / 3; height: 30
+                            Column { anchors.centerIn: parent; spacing: 2
+                                Etq { width: parent.width; text: "EN ÇOK"; horizontalAlignment: Text.AlignHCenter }
+                                Val { width: parent.width; text: root.d.top && root.d.top.length ? root.d.top[0][0].substring(0, 8) : "--"; font.pixelSize: 12; color: Pal.amber; horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight }
+                            }
+                        }
                     }
                 }
             }
@@ -327,8 +353,8 @@ PlasmoidItem {
                 Item {
                     opacity: root.hkOp
                     width: parent.width; height: parent.height
-                    Text { text: ""; font.family: Pal.jp; font.pixelSize: 14; color: Pal.flor; renderType: Text.NativeRendering }
-                    Text { y: 20; width: parent.width; wrapMode: Text.WordWrap; text: root.haikus[root.hk].tr; font.family: Pal.mono; font.pixelSize: 12; color: Pal.dim; renderType: Text.NativeRendering }
+                    Text { width: parent.width; text: root.haikus[root.hk].jp; font.family: Pal.jp; font.pixelSize: 14; color: Pal.flor; renderType: Text.NativeRendering }
+                    Text { y: 19; width: parent.width; wrapMode: Text.WordWrap; text: root.haikus[root.hk].tr; font.family: Pal.mono; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
                 }
             }
         }
