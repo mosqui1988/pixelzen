@@ -18,15 +18,15 @@ const PAL = {
 };
 const MONO = 'Departure Mono', JP = 'DotGothic16';
 
-const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+const DIAS = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'CuMartesi'];
+const MESES = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 const HAIKUS = [
-    {jp: '古池や 蛙飛びこむ 水の音', es: 'Un viejo estanque: salta una rana, suena el agua.', au: 'Bashō'},
-    {jp: '閑さや 岩にしみ入る 蝉の声', es: 'Quietud: el canto de la cigarra penetra la roca.', au: 'Bashō'},
-    {jp: '夏草や 兵どもが 夢の跡', es: 'Hierba de verano: lo que queda del sueño de los guerreros.', au: 'Bashō'},
-    {jp: '菜の花や 月は東に 日は西に', es: 'Flores de colza: la luna al este, el sol al oeste.', au: 'Buson'},
-    {jp: '秋深き 隣は何を する人ぞ', es: 'Otoño profundo: ¿a qué se dedicará mi vecino?', au: 'Bashō'},
-    {jp: '朝顔に つるべとられて もらい水', es: 'Una enredadera atrapa el cubo: pido agua prestada.', au: 'Chiyo-ni'},
+    {jp: '古池や 蛙飛びこむ 水の音', es: 'Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.', au: 'Bashō'},
+    {jp: '閑さや 岩にしみ入る 蝉の声', es: 'Quietud: el canto de la cigarra pOcatra la roca.', au: 'Bashō'},
+    {jp: '夏草や 兵どもが 夢の跡', es: 'Yaz otları; savaşçıların düşünden geriye kalanlar.', au: 'Bashō'},
+    {jp: '菜の花や 月は東に 日は西に', es: 'Kanola çiçekleri; ay doğuda, güneş batıda.', au: 'Buson'},
+    {jp: '秋深き 隣は何を する人ぞ', es: 'Otoño profundo: ¿a qué se deAraará mi vecino?', au: 'Bashō'},
+    {jp: '朝顔に つるべとられて もらい水', es: 'Sarmaşık kovayı sardı; suyumu komşudan alıyorum.', au: 'Chiyo-ni'},
 ];
 
 const p2 = n => (n < 10 ? '0' : '') + n;
@@ -79,11 +79,11 @@ export class Hud {
 
     // colocacion: columna derecha del area de trabajo del monitor elegido
     coloca(area) {
-        const margen = 24;
-        this.k = Math.max(0.5, Math.min(1.6, (area.height - 2 * margen) / ALTO));
+        const Margen = 24;
+        this.k = Math.max(0.5, Math.min(1.6, (area.height - 2 * Margen) / ALTO));
         const w = Math.round(ANCHO * this.k), h = Math.round(ALTO * this.k);
         this.actor.set_size(w, h);
-        this.actor.set_position(area.x + area.width - w - margen, area.y + margen);
+        this.actor.set_position(area.x + area.width - w - Margen, area.y + Margen);
         this.actor.queue_repaint();
     }
 
@@ -166,11 +166,11 @@ export class Hud {
     }
     _etq(x, y, txt) { return this._t(x, y, txt, {px: 11, col: PAL.dim}); }
     _val(x, y, txt, o = {}) { return this._t(x, y, txt, {px: 12, ...o}); }
-    // fila de pares etiqueta/valor separados por `sep`
-    _pares(x, y, pares, sep = 12) {
+    // fila de pares etiqueta/valor Eylarados por `Eyl`
+    _pares(x, y, pares, Eyl = 12) {
         for (const [e, v, col] of pares) {
             x += this._etq(x, y + 2, e) + 6;
-            x += this._val(x, y, v, {col}) + sep;
+            x += this._val(x, y, v, {col}) + Eyl;
         }
     }
 
@@ -254,7 +254,7 @@ export class Hud {
             fy += 6;
             this._spark(b.x, fy, b.w, 24, this.cpuH, 56, Math.max(12, ...this.cpuH, 0), PAL.rosa);
             fy += 30;
-            this._pares(b.x, fy, [['CARGA', (d.load?.[0] ?? 0).toFixed(2)], ['DISCO', Math.round(d.disco ?? 0) + '%'],
+            this._pares(b.x, fy, [['YÜK', (d.load?.[0] ?? 0).toFixed(2)], ['DİSK', Math.round(d.disco ?? 0) + '%'],
                 ['TOP', d.top?.length ? d.top[0][0].substring(0, 8) : '--', PAL.amber]], 14);
             y += 196;
 
@@ -266,14 +266,14 @@ export class Hud {
                 const bh = 3 + i * 3;
                 this._rect(b.x + i * 4, fy + 14 - bh, 3, bh, on ? PAL.green : PAL.track);
             }
-            this._t(b.x + 24, fy, net.ssid ?? (net.iface ? 'cableado' : '--'), {px: 13});
+            this._t(b.x + 24, fy, net.ssid ?? (net.iface ? 'Kablolu' : '--'), {px: 13});
             fy += 19;
             this._pares(b.x, fy, [['IP', net.ip ?? '--'], ['GW', net.gw ?? '--']]);
             fy += 19;
             const vpn = net.vpn ?? {};
             this._rect(b.x, fy + 3, 9, 9, vpn.on ? PAL.green : PAL.faint);
             this._etq(b.x + 17, fy + 2, 'VPN');
-            this._val(b.x + 47, fy, vpn.on ? `${vpn.iface}  ${vpn.ip ?? ''}` : 'inactiva', {col: vpn.on ? PAL.green : PAL.dim});
+            this._val(b.x + 47, fy, vpn.on ? `${vpn.iface}  ${vpn.ip ?? ''}` : 'Etkin değil', {col: vpn.on ? PAL.green : PAL.dim});
             fy += 19;
             this._val(b.x, fy, '↓ ' + tasa(net.rx ?? 0), {col: PAL.cyan});
             this._val(b.x, fy + 15, '↑ ' + tasa(net.tx ?? 0), {col: PAL.rosa});
@@ -291,7 +291,7 @@ export class Hud {
                 this._t(px + 5, fy + 1, txt, {px: 11, col: pt.local ? PAL.dim : PAL.amber});
                 px += tw + 4;
             }
-            this._pares(b.x, y + 192 - 11 - 16, [['CONN', s.est ?? 0], ['LAN', (s.vecinos ?? 0) + ' equipos'], ['DNS', s.dns ?? '--']]);
+            this._pares(b.x, y + 192 - 11 - 16, [['CONN', s.est ?? 0], ['LAN', (s.vecinos ?? 0) + ' cihaz'], ['DNS', s.dns ?? '--']]);
             y += 202;
 
             // ===== DEV
@@ -299,7 +299,7 @@ export class Hud {
             const hDev = 100 + Math.max(0, repos.length - 1) * 17;
             b = this._card(y, hDev, '開', 'DEV', s.kernel ? 'linux ' + s.kernel : '');
             fy = b.y;
-            if (!repos.length) { this._val(b.x, fy, 'sin repos git en workspace, dev o src', {col: PAL.faint}); fy += 17; }
+            if (!repos.length) { this._val(b.x, fy, 'workspace, dev veya src içinde Git deposu yok', {col: PAL.faint}); fy += 17; }
             for (const r of repos) {
                 this._rect(b.x, fy + 5, 8, 8, r.sucio > 0 ? PAL.amber : PAL.green);
                 let x = b.x + 16;
@@ -314,8 +314,8 @@ export class Hud {
             fy += 17;
             this._rect(b.x, fy + 5, 8, 8, s.fallos > 0 ? PAL.hot : PAL.green);
             const sync = s.pacman_h !== null && s.pacman_h !== undefined ? (s.pacman_h > 48 ? Math.floor(s.pacman_h / 24) + 'd' : s.pacman_h + 'h') : '--';
-            this._pares(b.x + 18, fy, [['SVC', (s.fallos ?? 0) + ' fallidos', s.fallos > 0 ? PAL.hot : PAL.text],
-                ['ERR 1H', s.errores ?? 0, s.errores > 0 ? PAL.amber : PAL.text], ['APT', sync]], 10);
+            this._pares(b.x + 18, fy, [['HİZ.', (s.fallos ?? 0) + ' başarısız', s.fallos > 0 ? PAL.hot : PAL.text],
+                ['HATA 1 SA', s.errores ?? 0, s.errores > 0 ? PAL.amber : PAL.text], ['PAKET', sync]], 10);
             y += hDev + 10;
 
             // ===== HAIKU
