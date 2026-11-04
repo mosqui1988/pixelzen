@@ -23,15 +23,15 @@ if [ "$PORTABLE" = 1 ]; then need=(python3 fc-cache); else need=(python3 qdbus6 
 falta=(); for c in "${need[@]}"; do command -v "$c" >/dev/null || falta+=("$c"); done
 if [ "$PORTABLE" = 0 ] && [ "$APLICAR" = 1 ]; then
   if ! plasma6; then
-    fallo "PixelZen completo necesita KDE Plasma 6 y no lo detecto en este equipo, asi que no he tocado nada.
+    fallo "PixelZen completo necesita KDE Plasma 6 y no lo detecto en este equipo, bu nedenle hiçbir ayara dokunulmadı.
 
-Si usas otro escritorio puedes instalar solo las piezas portables (iconos, cursor y fuentes) con:
+Başka bir masaüstü kullanıyorsanız yalnızca taşınabilir bileşenleri (simgeler, imleç ve yazı tipleri) şu komutla kurabilirsiniz:
 ./instalar.sh --portable"
   fi
 fi
 if [ ${#falta[@]} -gt 0 ]; then
   [ "$APLICAR" = 1 ] && fallo "Eksik: ${falta[*]}. Dağıtımınızın paket yöneticisiyle kurup yeniden deneyin."
-  echo "Aviso: faltan ${falta[*]}"
+  echo "Uyarı: şu bileşenler eksik: ${falta[*]}"
 fi
 
 if [ "$GRAFICO" = 1 ]; then
