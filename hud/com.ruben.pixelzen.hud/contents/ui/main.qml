@@ -57,14 +57,14 @@ PlasmoidItem {
         var age = (((Date.now() / 86400000 - ref) % syn) + syn) % syn
         return { age: age, p: age / syn }
     }
-    readonly property var dias: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "CuMartesi"]
+    readonly property var dias: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"]
     readonly property var meses: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
     readonly property var haikus: [
         { jp: "古池や 蛙飛びこむ 水の音", es: "Eski bir gölet; bir kurbağa atlar, suyun sesi duyulur.", au: "Bashō" },
-        { jp: "閑さや 岩にしみ入る 蝉の声", es: "Quietud: el canto de la cigarra pOcatra la roca.", au: "Bashō" },
+        { jp: "閑さや 岩にしみ入る 蝉の声", es: "Sessizlik; ağustos böceğinin sesi kayaya işler.", au: "Bashō" },
         { jp: "夏草や 兵どもが 夢の跡", es: "Yaz otları; savaşçıların düşünden geriye kalanlar.", au: "Bashō" },
         { jp: "菜の花や 月は東に 日は西に", es: "Kanola çiçekleri; ay doğuda, güneş batıda.", au: "Buson" },
-        { jp: "秋深き 隣は何を する人ぞ", es: "Otoño profundo: ¿a qué se deAraará mi vecino?", au: "Bashō" },
+        { jp: "秋深き 隣は何を する人ぞ", es: "Derin sonbahar; komşum acaba ne yapıyor?", au: "Bashō" },
         { jp: "朝顔に つるべとられて もらい水", es: "Sarmaşık kovayı sardı; suyumu komşudan alıyorum.", au: "Chiyo-ni" }
     ]
     property int hk: Math.floor(Date.now() / 90000) % haikus.length
@@ -171,7 +171,7 @@ PlasmoidItem {
                 Text { x: parent.width - 52; y: 40; width: 52; horizontalAlignment: Text.AlignHCenter; text: "月" + Math.round(root.luna().age) + "日"; font.family: Pal.jp; font.pixelSize: 11; color: Pal.dim; renderType: Text.NativeRendering }
             }
 
-            // ===================================================== SİSTEM
+            // ===================================================== SISTEMA
             Card {
                 width: parent.width; height: 186
                 kanji: "機"; title: "SİSTEM"
@@ -209,11 +209,11 @@ PlasmoidItem {
                 }
             }
 
-            // ===================================================== AĞ
+            // ===================================================== RED
             Card {
                 width: parent.width; height: 192
                 kanji: "網"; title: "AĞ"
-                meta: root.d.net && root.d.net.iface ? root.d.net.iface : "AĞ YOK"
+                meta: root.d.net && root.d.net.iface ? root.d.net.iface : "Ağ yok"
                 Column {
                     spacing: 3
                     Row { spacing: 8; height: 16
@@ -225,7 +225,7 @@ PlasmoidItem {
                                 }
                             }
                         }
-                        Val { text: root.d.net && root.d.net.ssid ? root.d.net.ssid : "KABLOLU" }
+                        Val { text: root.d.net && root.d.net.ssid ? root.d.net.ssid : "Kablolu" }
                     }
                     Row { spacing: 12
                         Etq { text: "IP"; y: 2 } Val { text: root.d.net && root.d.net.ip ? root.d.net.ip : "--"; font.pixelSize: 12 }
@@ -234,7 +234,7 @@ PlasmoidItem {
                     Row { spacing: 8
                         Rectangle { y: 3; width: 9; height: 9; color: root.d.net.vpn && root.d.net.vpn.on ? Pal.green : Pal.faint }
                         Etq { text: "VPN"; y: 2 }
-                        Val { text: root.d.net.vpn && root.d.net.vpn.on ? root.d.net.vpn.iface + "  " + root.d.net.vpn.ip : "ETKİN DEĞİL"; font.pixelSize: 12; color: root.d.net.vpn && root.d.net.vpn.on ? Pal.green : Pal.dim }
+                        Val { text: root.d.net.vpn && root.d.net.vpn.on ? root.d.net.vpn.iface + "  " + root.d.net.vpn.ip : "Etkin değil"; font.pixelSize: 12; color: root.d.net.vpn && root.d.net.vpn.on ? Pal.green : Pal.dim }
                     }
                     Row { spacing: 10; height: 38
                         Column { width: 92; spacing: -3
@@ -297,16 +297,16 @@ PlasmoidItem {
                 }
             }
 
-            // ===================================================== ARAÇLAR
+            // ===================================================== HERRAMIENTAS
             Card {
                 width: parent.width; height: 104
                 kanji: "道"; title: "ARAÇLAR"
-                meta: "clic = Nisir"
+                meta: "Açmak için tıkla"
                 Grid {
                     columns: 4; spacing: 6
                     PxBtn { width: 74; height: 28; kanji: "監"; label: "BTOP"; activo: !!root.s.tools.btop; onClicked: root.term("btop") }
                     PxBtn { width: 74; height: 28; kanji: "口"; label: "PUERTOS"; onClicked: root.term("ss -tulpn") }
-                    PxBtn { width: 74; height: 28; kanji: "網"; label: "AĞ"; onClicked: root.term("ip -br a; echo; ip r; echo; resolvectl status | head -20") }
+                    PxBtn { width: 74; height: 28; kanji: "網"; label: "RED"; onClicked: root.term("ip -br a; echo; ip r; echo; resolvectl status | head -20") }
                     PxBtn { width: 74; height: 28; kanji: "報"; label: "FETCH"; activo: !!root.s.tools.fastfetch; onClicked: root.term("fastfetch") }
                     PxBtn { width: 74; height: 28; kanji: "名"; label: "DNS"; activo: !!root.s.tools.dig; onClicked: root.term("dig archlinux.org +noall +answer +stats") }
                     PxBtn { width: 74; height: 28; kanji: "隣"; label: "EQUIPOS"; onClicked: root.term("ip neigh") }
