@@ -30,12 +30,12 @@ Si usas otro escritorio puedes instalar solo las piezas portables (iconos, curso
   fi
 fi
 if [ ${#falta[@]} -gt 0 ]; then
-  [ "$APLICAR" = 1 ] && fallo "Faltan: ${falta[*]}. Instalalos con el gestor de paquetes de tu distribucion y vuelve a probar."
+  [ "$APLICAR" = 1 ] && fallo "Eksik: ${falta[*]}. Dağıtımınızın paket yöneticisiyle kurup yeniden deneyin."
   echo "Aviso: faltan ${falta[*]}"
 fi
 
 if [ "$GRAFICO" = 1 ]; then
-  if [ "$PORTABLE" = 1 ]; then txt="Se instalaran los iconos, el cursor y las fuentes de PixelZen."
+  if [ "$PORTABLE" = 1 ]; then txt="PixelZen simgeleri, imleci ve yazı tipleri kurulacak."
   else txt="Se instalara el tema PixelZen: fondo animado, panel de datos, iconos, cursor y ventanas.
 
 Antes guarda una copia de tus ajustes y se puede deshacer. No usa sudo. Tarda alrededor de un minuto y el escritorio se recargara."; fi
@@ -51,31 +51,31 @@ principal() {
     IFS=',' read -r lat lon nombre <<<"$CASA"; tz="$(timedatectl show -p Timezone --value 2>/dev/null || echo '')"
     mkdir -p "$HOME/.config/pixelzen"
     printf '{\n  "casa": {"nombre": "%s", "lat": %s, "lon": %s, "tz": "%s"}\n}\n' "${nombre:-casa}" "$lat" "$lon" "$tz" > "$HOME/.config/pixelzen/ubicacion.json"
-    echo "==> Ubicacion de casa guardada en ~/.config/pixelzen/ubicacion.json"
+    echo "==> Ev konumu ~/.config/pixelzen/ubicacion.json dosyasına kaydedildi"
   fi
   if [ "$PORTABLE" = 1 ]; then
-    echo "==> Instalando iconos, cursor y fuentes"; "$DEST/aplicar.sh" portable
+    echo "==> Simgeler, imleç ve yazı tipleri kuruluyor"; "$DEST/aplicar.sh" portable
   elif [ "$APLICAR" = 1 ]; then
-    echo "==> Generando y aplicando el tema (tarda ~1 min)"; "$DEST/aplicar.sh" todo
-    echo "==> Reiniciando el shell de Plasma"; systemctl --user restart plasma-plasmashell.service 2>/dev/null || true
+    echo "==> Tema oluşturulup uygulanıyor (yaklaşık 1 dakika sürer)"; "$DEST/aplicar.sh" todo
+    echo "==> Plasma kabuğu yeniden başlatılıyor"; systemctl --user restart plasma-plasmashell.service 2>/dev/null || true
   else
-    echo "Copiado. Aplica cuando quieras con: $DEST/aplicar.sh todo"
+    echo "Kopyalandı. İstediğiniz zaman şu komutla uygulayın: $DEST/aplicar.sh todo"
   fi
 }
 
 if [ "$GRAFICO" = 1 ]; then
   LOG="$(mktemp /tmp/pixelzen-instalar.XXXXXX)"
-  kdialog --title PixelZen --passivepopup "Instalando PixelZen... tarda alrededor de un minuto." 10 2>/dev/null &
+  kdialog --title PixelZen --passivepopup "PixelZen kuruluyor... yaklaşık bir dakika sürer." 10 2>/dev/null &
   set +e; ( set -e; principal ) >"$LOG" 2>&1; rc=$?; set -e
   [ $rc -eq 0 ] || fallo "No se ha podido instalar. Tus ajustes originales no se han perdido.
 
 $(tail -n 6 "$LOG")
 
 Registro completo: $LOG"
-  if [ "$PORTABLE" = 1 ]; then dialogo msgbox "Listo. Elige 'PixelZen' como tema de iconos y 'PixelZenCursor' como cursor en los ajustes de tu escritorio."
-  else dialogo msgbox "Listo. Para volver atras: $DEST/revertir.sh"; fi
+  if [ "$PORTABLE" = 1 ]; then dialogo msgbox "Tamamlandı. Masaüstü ayarlarından simge teması olarak 'PixelZen'i, imleç olarak 'PixelZenCursor'ı seçin."
+  else dialogo msgbox "Tamamlandı. Geri almak için: $DEST/revertir.sh"; fi
 else
   principal
-  if [ "$PORTABLE" = 1 ]; then echo "Listo. Elige 'PixelZen' (iconos) y 'PixelZenCursor' (cursor) en los ajustes de tu escritorio."
-  elif [ "$APLICAR" = 1 ]; then echo "Listo. Para volver atras: $DEST/revertir.sh   |   desinstalar todo: $DEST/desinstalar.sh"; fi
+  if [ "$PORTABLE" = 1 ]; then echo "Tamamlandı. Masaüstü ayarlarından 'PixelZen' simge temasını ve 'PixelZenCursor' imlecini seçin."
+  elif [ "$APLICAR" = 1 ]; then echo "Tamamlandı. Geri almak için: $DEST/revertir.sh   |   desinstalar todo: $DEST/desinstalar.sh"; fi
 fi
